@@ -6,8 +6,8 @@ Fetch and parse JSON from AWS secrets manager.
 ![Version](https://img.shields.io/npm/v/aws-secrets-parser)
 ![Downloads](https://img.shields.io/npm/dw/aws-secrets-parser)
 ![Size](https://img.shields.io/bundlephobia/min/aws-secrets-parser)
-![Quality](https://img.shields.io/codacy/grade/...)
-![Coverage](https://img.shields.io/codacy/coverage/...)
+![Quality](https://img.shields.io/codacy/grade/c404206e7d28495fb7800b1d5666425d)
+![Coverage](https://img.shields.io/codacy/coverage/c404206e7d28495fb7800b1d5666425d)
 
 ## Motivation
 
