@@ -3,7 +3,5 @@
     "^.+\\.ts$": ["ts-jest", { "isolatedModules": true }]
   },
   "modulePathIgnorePatterns": ["dist"],
-  "setupFilesAfterEnv": ["<rootDir>/src/testing/jest.ts"],
-  "collectCoverage": true,
-  "coveragePathIgnorePatterns": ["<rootDir>/src/testing"]
+  "collectCoverage": true
 }
