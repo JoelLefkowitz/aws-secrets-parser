@@ -1,6 +1,6 @@
 {
   "name": "aws-secrets-parser",
-  "description": "...",
+  "description": "Fetch and parse JSON from AWS secrets manager.",
   "version": "0.1.0",
   "license": "MIT",
   "author": "Joel Lefkowitz",
@@ -35,7 +35,6 @@
     "cliui": "^8.0.1",
     "strip-ansi": "^6.0.1"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/jest": "29.0.0",

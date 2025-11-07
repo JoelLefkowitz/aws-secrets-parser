@@ -1,6 +1,6 @@
 # AWS secrets parser
 
-...
+Fetch and parse JSON from AWS secrets manager.
 
 ![Review](https://img.shields.io/github/actions/workflow/status/JoelLefkowitz/aws-secrets-parser/review.yaml)
 ![Version](https://img.shields.io/npm/v/aws-secrets-parser)
@@ -11,7 +11,31 @@
 
 ## Motivation
 
-...
+If I have a JSON secret:
+
+```json
+{
+  "username": "***",
+  "password": "***"
+}
+```
+
+I want to programmatically fetch and parse it:
+
+```ts
+import { fetch } from "aws-secrets-parser";
+
+fetch("database-secret-name").then(({ username, password }) => { ... });
+```
+
+I also want to export the values to environment variables:
+
+```bash
+> aws-secrets-parser database-secret-name --prefix DATABASE
+
+DATABASE_USERNAME=***
+DATABASE_PASSWORD=***
+```
 
 ## Installing
 
@@ -19,9 +43,52 @@
 npm install aws-secrets-parser
 ```
 
+To make the cli accessible install the package globally with the `-g` flag or invoke it with `npx`.
+
 ## Usage
 
-...
+Fetch and parse a JSON secret:
+
+```ts
+import { fetch } from "aws-secrets-parser";
+
+fetch("database-secret-name");
+```
+
+Secrets are region specific. You can specify the region directly:
+
+```ts
+import { fetch } from "aws-secrets-parser";
+
+fetch("database-secret-name", "us-east-2");
+```
+
+### CLI
+
+```bash
+aws-secrets-parser <secret-name> [--prefix <PREFIX>] [--format <FORMAT>]
+```
+
+`Format` can be one of:
+
+- **`constant`** (default): Converts keys to CONSTANT_CASE
+- **`ignore`**: Preserve the original casing
+
+#### Examples
+
+```bash
+> aws-secrets-parser database-secret-name --prefix DATABASE
+
+DATABASE_USERNAME=***
+DATABASE_PASSWORD=***
+```
+
+```bash
+> aws-secrets-parser database-secret-name --format ignore --prefix database
+
+database_username=***
+database_password=***
+```
 
 ## Tooling
 
