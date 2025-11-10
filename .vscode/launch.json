@@ -6,7 +6,6 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/tsx",
-      "runtimeArgs": ["--transpile-only"],
       "program": "${file}",
       "cwd": "${workspaceRoot}",
       "console": "integratedTerminal",
