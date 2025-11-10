@@ -18,9 +18,9 @@
     "useUnknownInCatchVariables": true,
     "downlevelIteration": true,
     "outDir": "dist",
-    "module": "CommonJS",
+    "module": "ESNext",
     "moduleResolution": "node",
-    "target": "ES5",
+    "target": "ESNext",
     "baseUrl": ".",
     "resolveJsonModule": true,
     "declaration": true,
@@ -34,11 +34,6 @@
     "experimentalDecorators": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
   },
   "include": ["src/**/*"],
   "exclude": ["**/*.spec.ts"]

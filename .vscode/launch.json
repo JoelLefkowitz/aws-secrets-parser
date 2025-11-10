@@ -5,7 +5,7 @@
       "name": "Start",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/tsx",
       "runtimeArgs": ["--transpile-only"],
       "program": "${file}",
       "cwd": "${workspaceRoot}",
@@ -16,14 +16,8 @@
       "name": "Test",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-      "args": [
-        "--verbose",
-        "-i",
-        "--no-cache",
-        "--testPathPattern",
-        "${fileBasename}"
-      ],
+      "program": "${workspaceRoot}/node_modules/.bin/vitest",
+      "args": ["run", "--reporter=verbose", "--no-coverage", "${fileBasename}"],
       "cwd": "${workspaceRoot}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

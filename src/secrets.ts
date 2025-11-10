@@ -4,7 +4,7 @@ import {
 } from "@aws-sdk/client-secrets-manager";
 import { IJSON, isJSONString } from "reviewed";
 
-export const fetch = async (
+export const retrieve = async (
   secret: string,
   region = "us-east-1",
 ): Promise<IJSON> =>
@@ -13,8 +13,7 @@ export const fetch = async (
     .catch(() => {
       throw new Error(`Missing secret "${secret}" in region "${region}"`);
     })
-    .then((res) => {
-      const { SecretString } = res;
+    .then(({ SecretString }) => {
       const { valid, parsed } = isJSONString(SecretString);
 
       if (!valid) {

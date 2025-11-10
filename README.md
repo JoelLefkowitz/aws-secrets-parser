@@ -20,18 +20,18 @@ If I have a JSON secret:
 }
 ```
 
-I want to programmatically fetch and parse it:
+I want to programmatically retrieve and parse it into an object:
 
 ```ts
-import { fetch } from "aws-secrets-parser";
+import secrets from "aws-secrets-parser";
 
-fetch("database-secret-name").then(({ username, password }) => { ... });
+secrets.retrieve("database-secret").then(({ username, password }) => { ... });
 ```
 
-I also want to export the values to environment variables:
+I also want to format and export the values to environment variables:
 
 ```bash
-> aws-secrets-parser database-secret-name --prefix DATABASE
+> source <(aws-secrets-parser database-secret --format constant --prefix DATABASE)
 
 DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
@@ -50,44 +50,64 @@ To make the cli accessible install the package globally with the `-g` flag or in
 Fetch and parse a JSON secret:
 
 ```ts
-import { fetch } from "aws-secrets-parser";
+import secrets from "aws-secrets-parser";
 
-fetch("database-secret-name");
+secrets.retrieve("database-secret");
 ```
 
 Secrets are region specific. You can specify the region directly:
 
 ```ts
-import { fetch } from "aws-secrets-parser";
+import secrets from "aws-secrets-parser";
 
-fetch("database-secret-name", "us-east-2");
+secrets.retrieve("database-secret", "us-east-2");
 ```
 
 ### CLI
 
 ```bash
-aws-secrets-parser <secret-name> [--prefix <PREFIX>] [--format <FORMAT>]
+aws-secrets-parser <name>
+
+Fetch and parse JSON from AWS secrets manager.
+
+Positionals:
+  name
+
+Options:
+  -h, --help     Show help                                             [boolean]
+  -v, --version  Show version number                                   [boolean]
+  -r, --region                                   [string] [default: "us-east-1"]
+  -f, --format                          [string] [choices: "constant", "pascal"]
+  -p, --prefix                                                          [string]
 ```
 
-`Format` can be one of:
-
-- **`constant`** (default): Converts keys to CONSTANT_CASE
-- **`ignore`**: Preserve the original casing
+CaseFormat:
+**`--format constant`** → `CONSTANT_CASE`
+**`--format pascal`** → `PascalCase`
 
 #### Examples
 
 ```bash
-> aws-secrets-parser database-secret-name --prefix DATABASE
+> source <(aws-secrets-parser database-secret --format constant --prefix DATABASE)
 
 DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
 
-```bash
-> aws-secrets-parser database-secret-name --format ignore --prefix database
+#### Implementation
 
-database_username=***
-database_password=***
+Since you can't set environment variables from a script directly the cli instead prints export statements:
+
+```bash
+> aws-secrets-parser ...
+
+export KEY=VALUE
+```
+
+Running the cli with `source` will consume them:
+
+```bash
+> source <(aws-secrets-parser ...)
 ```
 
 ## Tooling
