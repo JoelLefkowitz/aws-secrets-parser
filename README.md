@@ -71,7 +71,7 @@ aws-secrets-parser <name>
 Fetch and parse JSON from AWS secrets manager.
 
 Positionals:
-  name
+  name                                                                  [string]
 
 Options:
   -h, --help     Show help                                             [boolean]

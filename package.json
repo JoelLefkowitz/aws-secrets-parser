@@ -7,9 +7,7 @@
   "repository": "https://github.com/joellefkowitz/aws-secrets-parser",
   "homepage": "https://joellefkowitz.github.io/aws-secrets-parser",
   "main": "dist/index.js",
-  "bin": {
-    "aws-secrets-parser": "dist/main.js"
-  },
+  "bin": "dist/main.js",
   "files": [
     "dist"
   ],
