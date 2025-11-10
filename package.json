@@ -33,7 +33,7 @@
     "lint": "cspell . --dot --gitignore && eslint . --fix && tsc --noEmit && trufflehog3 -c .trufflehog3.yaml",
     "format": "prettier . --write",
     "build": "tsc",
-    "test": "vitest --run",
+    "test": "vitest --run --coverage",
     "docs": "typedoc --options docs/typedoc/typedoc.json && tsx ./docs/typedoc/assets.ts"
   },
   "resolutions": {
