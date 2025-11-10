@@ -76,14 +76,14 @@ Positionals:
 Options:
   -h, --help     Show help                                             [boolean]
   -v, --version  Show version number                                   [boolean]
-  -r, --region                                   [string] [default: "us-east-1"]
+  -r, --region                                                          [string]
   -f, --format                          [string] [choices: "constant", "pascal"]
   -p, --prefix                                                          [string]
 ```
 
 CaseFormat:
-**`--format constant`** → `CONSTANT_CASE`
-**`--format pascal`** → `PascalCase`
+- **`--format constant`** → `CONSTANT_CASE`
+- **`--format pascal`** → `PascalCase`
 
 #### Examples
 
