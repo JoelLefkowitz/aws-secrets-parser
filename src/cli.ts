@@ -1,6 +1,5 @@
 import { FormatOptions } from "./formatters";
 import { applySpec, prop } from "ramda";
-import { description } from "../package.json";
 import yargs from "yargs";
 
 export interface CLI {
@@ -19,26 +18,29 @@ export const cli = (argv: string[]) =>
     },
   })(
     yargs(argv)
-      .command("$0 <name>", description, (yargs) =>
-        yargs
-          .positional("name", {
-            type: "string",
-            demandOption: true,
-          })
-          .option("region", {
-            type: "string",
-            alias: "r",
-            default: "us-east-1",
-          })
-          .option("format", {
-            type: "string",
-            alias: "f",
-            choices: ["constant", "pascal"],
-          })
-          .option("prefix", {
-            type: "string",
-            alias: "p",
-          }),
+      .command(
+        "$0 <name>",
+        "Fetch and parse JSON from AWS secrets manager.",
+        (yargs) =>
+          yargs
+            .positional("name", {
+              type: "string",
+              demandOption: true,
+            })
+            .option("region", {
+              type: "string",
+              alias: "r",
+              default: "us-east-1",
+            })
+            .option("format", {
+              type: "string",
+              alias: "f",
+              choices: ["constant", "pascal"],
+            })
+            .option("prefix", {
+              type: "string",
+              alias: "p",
+            }),
       )
       .help()
       .version()

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { cli } from "./cli";
 import { emit } from "./emitters";
 import { hideBin } from "yargs/helpers";
