@@ -4,7 +4,7 @@
   "customCss": "./styles.css",
   "cleanOutputDir": true,
   "plugin": ["typedoc-material-theme"],
-  "themeColor": "#BA16B5",
+  "themeColor": "#7A3F98",
   "categorizeByGroup": true,
   "groupOrder": ["Functions"],
   "categoryOrder": ["Factories", "Aliases", "Validators"],
