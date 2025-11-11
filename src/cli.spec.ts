@@ -20,11 +20,23 @@ describe("cli", () => {
     expect(cli(["name"]).region).toBe("us-east-1");
   });
 
-  it("parses the format", () => {
-    expect(cli(["name", "--format", "pascal"]).options.format).toBe("pascal");
+  it("parses the naming format", () => {
+    expect(cli(["name", "--naming", "pascal"]).naming.format).toBe("pascal");
+  });
+
+  it('defaults the naming format to "preserve"', () => {
+    expect(cli(["name"]).naming.format).toBe("preserve");
   });
 
   it("parses the prefix", () => {
-    expect(cli(["name", "--prefix", "prefix"]).options.prefix).toBe("prefix");
+    expect(cli(["name", "--prefix", "prefix"]).naming.prefix).toBe("prefix");
+  });
+
+  it("parses the output format", () => {
+    expect(cli(["name", "--output", "dotenv"]).output.format).toBe("dotenv");
+  });
+
+  it('defaults the output format to "export"', () => {
+    expect(cli(["name"]).output.format).toBe("export");
   });
 });

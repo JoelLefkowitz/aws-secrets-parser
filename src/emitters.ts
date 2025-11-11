@@ -1,7 +1,15 @@
-import { FormatOptions, formatKey } from "./formatters";
 import { IJSON, isRecord } from "reviewed";
+import { NamingOptions, formatKey } from "./formatters";
 
-export const emit = (json: IJSON, options: FormatOptions) => {
+export interface OutputOptions {
+  format: "export" | "dotenv";
+}
+
+export const emit = (
+  json: IJSON,
+  naming: NamingOptions,
+  { format }: OutputOptions,
+) => {
   const { valid, parsed } = isRecord(json);
 
   if (!valid) {
@@ -11,8 +19,15 @@ export const emit = (json: IJSON, options: FormatOptions) => {
   }
 
   Object.entries(parsed).forEach(([k, v]) => {
-    const key = formatKey(k, options);
+    const key = formatKey(k, naming);
     const value = String(v);
-    console.log(`export ${key}="${value}"`);
+
+    if (format === "export") {
+      console.log(`export ${key}="${value}"`);
+    }
+
+    if (format === "dotenv") {
+      console.log(`${key}=${value}`);
+    }
   });
 };

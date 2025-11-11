@@ -14,13 +14,8 @@ describe("capitalise", () => {
 describe("formatKey", () => {
   const prefix = "prefix";
 
-  it("handles keys", () => {
-    expect(formatKey("key", {})).toBe("key");
-  });
-
-  it("adds prefixes", () => {
-    // cspell:disable-next-line
-    expect(formatKey("key", { prefix })).toBe("prefixkey");
+  it("preserves the case", () => {
+    expect(formatKey("key", { format: "preserve" })).toBe("key");
   });
 
   it("formats to constant case", () => {
@@ -29,5 +24,10 @@ describe("formatKey", () => {
 
   it("formats to pascal case", () => {
     expect(formatKey("key", { format: "pascal", prefix })).toBe("PrefixKey");
+  });
+
+  it("adds prefixes", () => {
+    // cspell:disable-next-line
+    expect(formatKey("key", { format: "preserve", prefix })).toBe("prefixkey");
   });
 });

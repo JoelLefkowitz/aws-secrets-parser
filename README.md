@@ -25,13 +25,14 @@ I want to programmatically retrieve and parse it into an object:
 ```ts
 import { retrieve } from "aws-secrets-parser";
 
-retrieve("database-secret").then(({ username, password }) => { ... });
+retrieve("database-secret", "us-east-1").then(({ username, password }) => { ... });
 ```
 
 I also want to format and export the values to environment variables:
 
 ```bash
-> source <(aws-secrets-parser database-secret --format constant --prefix DATABASE)
+> source <(aws-secrets-parser database-secret --naming constant --prefix DATABASE)
+> printenv
 
 DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
@@ -63,44 +64,53 @@ aws-secrets-parser <name>
 Fetch and parse JSON from AWS secrets manager.
 
 Positionals:
-  name                                                                  [string]
+  name  The secret name                                                                                         [string]
 
 Options:
-  -h, --help     Show help                                             [boolean]
-  -v, --version  Show version number                                   [boolean]
-  -r, --region                                   [string] [default: "us-east-1"]
-  -f, --format                          [string] [choices: "constant", "pascal"]
-  -p, --prefix                                                          [string]
+  -h, --help     Show help                                                                                     [boolean]
+  -v, --version  Show version number                                                                           [boolean]
+  -r, --region   Set the AWS region                                                      [string] [default: "us-east-1"]
+  -n, --naming   Set the key naming format    [string] [choices: "preserve", "constant", "pascal"] [default: "preserve"]
+  -p, --prefix   Add a prefix to the keys                                                                       [string]
+  -o, --output   Set the output format                        [string] [choices: "export", "dotenv"] [default: "export"]
 ```
 
-CaseFormat:
+Naming formats:
 
-- **`--format constant`** → `CONSTANT_CASE`
-- **`--format pascal`** → `PascalCase`
+- **`constant`** → `CONSTANT_CASE`
+- **`pascal`** → `PascalCase`
+
+Output formats:
+
+- **`export`** → `export key="value"`
+- **`dotenv`** → `key=value`
 
 #### Examples
 
 ```bash
-> source <(aws-secrets-parser database-secret --format constant --prefix DATABASE)
+> aws-secrets-parser database-secret --naming constant --prefix DATABASE
+
+export DATABASE_USERNAME="***"
+export DATABASE_PASSWORD="***"
+```
+
+The cli prints export statements since you can't set environment variables from a script directly. Running the cli with `source` will consume them:
+
+```bash
+> source <(aws-secrets-parser database-secret --naming constant --prefix DATABASE)
+> printenv
 
 DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
 
-#### Implementation
-
-Since you can't set environment variables from a script directly the cli instead prints export statements:
+You can also output them in `dotenv` format directly:
 
 ```bash
-> aws-secrets-parser ...
+> aws-secrets-parser database-secret --naming constant --prefix DATABASE --output dotenv
 
-export KEY=VALUE
-```
-
-Running the cli with `source` will consume them:
-
-```bash
-> source <(aws-secrets-parser ...)
+DATABASE_USERNAME=***
+DATABASE_PASSWORD=***
 ```
 
 ## Tooling
