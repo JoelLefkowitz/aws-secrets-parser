@@ -23,9 +23,9 @@ If I have a JSON secret:
 I want to programmatically retrieve and parse it into an object:
 
 ```ts
-import secrets from "aws-secrets-parser";
+import { retrieve } from "aws-secrets-parser";
 
-secrets.retrieve("database-secret").then(({ username, password }) => { ... });
+retrieve("database-secret").then(({ username, password }) => { ... });
 ```
 
 I also want to format and export the values to environment variables:
@@ -50,9 +50,9 @@ To make the cli accessible install the package globally with the `-g` flag or in
 Fetch and parse a JSON secret:
 
 ```ts
-import secrets from "aws-secrets-parser";
+import { retrieve } from "aws-secrets-parser";
 
-secrets.retrieve("database-secret", "us-east-1");
+retrieve("database-secret", "us-east-1");
 ```
 
 ### CLI
