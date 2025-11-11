@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 
 describe("capitalise", () => {
   it("capitalises a word", () => {
-    expect(capitalise("hello")).toBe("Hello");
+    expect(capitalise("abc")).toBe("Abc");
   });
 
   it("preserves empty strings", () => {

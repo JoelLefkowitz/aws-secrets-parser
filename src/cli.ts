@@ -30,6 +30,7 @@ export const cli = (argv: string[]) =>
             .option("region", {
               type: "string",
               alias: "r",
+              default: "us-east-1",
             })
             .option("format", {
               type: "string",

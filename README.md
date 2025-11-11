@@ -52,15 +52,7 @@ Fetch and parse a JSON secret:
 ```ts
 import secrets from "aws-secrets-parser";
 
-secrets.retrieve("database-secret");
-```
-
-Secrets are region specific. You can specify the region directly:
-
-```ts
-import secrets from "aws-secrets-parser";
-
-secrets.retrieve("database-secret", "us-east-2");
+secrets.retrieve("database-secret", "us-east-1");
 ```
 
 ### CLI
@@ -76,12 +68,13 @@ Positionals:
 Options:
   -h, --help     Show help                                             [boolean]
   -v, --version  Show version number                                   [boolean]
-  -r, --region                                                          [string]
+  -r, --region                                   [string] [default: "us-east-1"]
   -f, --format                          [string] [choices: "constant", "pascal"]
   -p, --prefix                                                          [string]
 ```
 
 CaseFormat:
+
 - **`--format constant`** → `CONSTANT_CASE`
 - **`--format pascal`** → `PascalCase`
 

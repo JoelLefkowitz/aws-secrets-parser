@@ -6,7 +6,7 @@ import { IJSON, isJSONString } from "reviewed";
 
 export const retrieve = async (
   secret: string,
-  region = "us-east-1",
+  region: string,
 ): Promise<IJSON> =>
   new SecretsManagerClient({ region })
     .send(new GetSecretValueCommand({ SecretId: secret }))
