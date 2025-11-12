@@ -38,6 +38,19 @@ DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
 
+ I also want to format and export them to a `.env` file:
+
+```bash
+> aws-secrets-parser database-secret --naming constant --prefix DATABASE --output dotenv > .env
+```
+
+This produces a `.env` file with:
+
+```dotenv
+DATABASE_USERNAME=***
+DATABASE_PASSWORD=***
+```
+
 ## Installing
 
 ```bash
@@ -105,11 +118,15 @@ DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
 
-You can also output them in `dotenv` format directly:
+You can also output them in `dotenv` format to consume later:
 
 ```bash
-> aws-secrets-parser database-secret --naming constant --prefix DATABASE --output dotenv
+> aws-secrets-parser database-secret --naming constant --prefix DATABASE --output dotenv > .env
+```
 
+This produces a `.env` file with:
+
+```dotenv
 DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
