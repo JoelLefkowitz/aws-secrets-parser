@@ -77,12 +77,13 @@ Options:
 
 Naming formats:
 
+- **`preserve`** → No formatting
 - **`constant`** → `CONSTANT_CASE`
 - **`pascal`** → `PascalCase`
 
 Output formats:
 
-- **`export`** → `export key="value"`
+- **`export`** → `export key='value'`
 - **`dotenv`** → `key=value`
 
 #### Examples
@@ -90,8 +91,8 @@ Output formats:
 ```bash
 > aws-secrets-parser database-secret --naming constant --prefix DATABASE
 
-export DATABASE_USERNAME="***"
-export DATABASE_PASSWORD="***"
+export DATABASE_USERNAME='***'
+export DATABASE_PASSWORD='***'
 ```
 
 The cli prints export statements since you can't set environment variables from a script directly. Running the cli with `source` will consume them:

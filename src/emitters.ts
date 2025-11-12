@@ -23,7 +23,7 @@ export const emit = (
     const value = String(v);
 
     if (format === "export") {
-      console.log(`export ${key}="${value}"`);
+      console.log(`export ${key}='${value}'`);
     }
 
     if (format === "dotenv") {
