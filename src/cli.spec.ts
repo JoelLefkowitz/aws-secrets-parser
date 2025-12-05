@@ -21,22 +21,36 @@ describe("cli", () => {
   });
 
   it("parses the naming format", () => {
-    expect(cli(["name", "--naming", "pascal"]).naming.format).toBe("pascal");
+    expect(cli(["name", "--naming", "pascal"]).options.naming.format).toBe(
+      "pascal",
+    );
   });
 
   it('defaults the naming format to "preserve"', () => {
-    expect(cli(["name"]).naming.format).toBe("preserve");
+    expect(cli(["name"]).options.naming.format).toBe("preserve");
   });
 
   it("parses the prefix", () => {
-    expect(cli(["name", "--prefix", "prefix"]).naming.prefix).toBe("prefix");
+    expect(cli(["name", "--prefix", "prefix"]).options.naming.prefix).toBe(
+      "prefix",
+    );
+  });
+
+  it("parses the postgres flag", () => {
+    expect(cli(["name", "--postgres"]).options.aggregation.postgres).toBe(true);
+  });
+
+  it("defaults the postgres flag to false", () => {
+    expect(cli(["name"]).options.aggregation.postgres).toBe(false);
   });
 
   it("parses the output format", () => {
-    expect(cli(["name", "--output", "dotenv"]).output.format).toBe("dotenv");
+    expect(cli(["name", "--output", "dotenv"]).options.output.format).toBe(
+      "dotenv",
+    );
   });
 
   it('defaults the output format to "export"', () => {
-    expect(cli(["name"]).output.format).toBe("export");
+    expect(cli(["name"]).options.output.format).toBe("export");
   });
 });

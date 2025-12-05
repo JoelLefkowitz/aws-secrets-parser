@@ -1,15 +1,13 @@
 import { IJSON, isRecord } from "reviewed";
-import { NamingOptions, formatKey } from "./formatters";
+import { Options } from "./options";
+import { formatKey } from "./formatters";
+import { postgres } from "./aggregators";
 
 export interface OutputOptions {
   format: "export" | "dotenv";
 }
 
-export const emit = (
-  json: IJSON,
-  naming: NamingOptions,
-  { format }: OutputOptions,
-) => {
+export const emit = (json: IJSON, { naming, aggregation, output }: Options) => {
   const { valid, parsed } = isRecord(json);
 
   if (!valid) {
@@ -18,15 +16,23 @@ export const emit = (
     );
   }
 
-  Object.entries(parsed).forEach(([k, v]) => {
+  const aggregators = [];
+
+  if (aggregation.postgres) {
+    aggregators.push(postgres);
+  }
+
+  const fields = aggregators.reduce((acc, x) => x(acc), parsed);
+
+  Object.entries(fields).forEach(([k, v]) => {
     const key = formatKey(k, naming);
     const value = String(v);
 
-    if (format === "export") {
+    if (output.format === "export") {
       console.log(`export ${key}='${value}'`);
     }
 
-    if (format === "dotenv") {
+    if (output.format === "dotenv") {
       console.log(`${key}=${value}`);
     }
   });

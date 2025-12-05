@@ -38,7 +38,7 @@ DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
 
- I also want to format and export them to a `.env` file:
+I also want to format and export them to a `.env` file:
 
 ```bash
 > aws-secrets-parser database-secret --naming constant --prefix DATABASE --output dotenv > .env

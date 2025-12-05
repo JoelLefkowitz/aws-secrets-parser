@@ -4,10 +4,10 @@ import { emit } from "./emitters";
 import { hideBin } from "yargs/helpers";
 import { retrieve } from "./secrets";
 
-const { name, region, naming, output } = cli(hideBin(process.argv));
+const { name, region, options } = cli(hideBin(process.argv));
 
 retrieve(name, region)
   .then((secret) => {
-    emit(secret, naming, output);
+    emit(secret, options);
   })
   .catch(console.error);

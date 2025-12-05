@@ -1,25 +1,28 @@
-import { NamingOptions } from "./formatters";
-import { OutputOptions } from "./emitters";
+import { Options } from "./options";
 import { applySpec, prop } from "ramda";
 import yargs from "yargs";
 
 export interface CLI {
   name: string;
   region: string;
-  naming: NamingOptions;
-  output: OutputOptions;
+  options: Options;
 }
 
 export const cli = (argv: string[]) =>
   applySpec<CLI>({
     name: prop("name"),
     region: prop("region"),
-    naming: {
-      format: prop("naming"),
-      prefix: prop("prefix"),
-    },
-    output: {
-      format: prop("output"),
+    options: {
+      naming: {
+        format: prop("naming"),
+        prefix: prop("prefix"),
+      },
+      aggregation: {
+        postgres: prop("postgres"),
+      },
+      output: {
+        format: prop("output"),
+      },
     },
   })(
     yargs(argv)
@@ -50,6 +53,12 @@ export const cli = (argv: string[]) =>
               type: "string",
               description: "Add a prefix to the keys",
               alias: "p",
+            })
+            .option("postgres", {
+              type: "boolean",
+              description: "Aggregate postgres variables",
+              alias: "P",
+              default: false,
             })
             .option("output", {
               type: "string",
