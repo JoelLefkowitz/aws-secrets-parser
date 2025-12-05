@@ -6,6 +6,9 @@ exclude:
   - message: Shield links
     pattern: img\.shields\.io
 
+  - message: Non-secret postgres url
+    pattern: postgresql://USERNAME:PASSWORD@ENDPOINT/DATABASE
+
   - message: Dependencies
     paths:
       - node_modules
