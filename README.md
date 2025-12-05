@@ -85,6 +85,7 @@ Options:
   -r, --region   Set the AWS region                                                      [string] [default: "us-east-1"]
   -n, --naming   Set the key naming format    [string] [choices: "preserve", "constant", "pascal"] [default: "preserve"]
   -p, --prefix   Add a prefix to the keys                                                                       [string]
+  -P, --postgres Aggregate postgres variables                                                 [boolean] [default: false]
   -o, --output   Set the output format                        [string] [choices: "export", "dotenv"] [default: "export"]
 ```
 
