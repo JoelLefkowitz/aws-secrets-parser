@@ -64,8 +64,8 @@ export const cli = (argv: string[]) =>
               type: "string",
               description: "Set the output format",
               alias: "o",
-              choices: ["export", "dotenv"],
-              default: "export",
+              choices: ["json", "export", "dotenv"],
+              default: "json",
             }),
       )
       .help()

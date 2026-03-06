@@ -45,12 +45,12 @@ describe("cli", () => {
   });
 
   it("parses the output format", () => {
-    expect(cli(["name", "--output", "dotenv"]).options.output.format).toBe(
-      "dotenv",
+    expect(cli(["name", "--output", "export"]).options.output.format).toBe(
+      "export",
     );
   });
 
-  it('defaults the output format to "export"', () => {
-    expect(cli(["name"]).options.output.format).toBe("export");
+  it('defaults the output format to "json"', () => {
+    expect(cli(["name"]).options.output.format).toBe("json");
   });
 });

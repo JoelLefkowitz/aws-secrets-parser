@@ -20,7 +20,7 @@ If I have a JSON secret:
 }
 ```
 
-I want to programmatically retrieve and parse it into an object:
+1. I want to be able to programmatically retrieve and parse it into an object:
 
 ```ts
 import { retrieve } from "aws-secrets-parser";
@@ -28,17 +28,27 @@ import { retrieve } from "aws-secrets-parser";
 retrieve("database-secret", "us-east-1").then(({ username, password }) => { ... });
 ```
 
-I also want to format and export the values to environment variables:
+2. I want to be able to pass it to `jq`:
 
 ```bash
-> source <(aws-secrets-parser database-secret --naming constant --prefix DATABASE)
+> aws-secrets-parser database-secret | jq "."
+{
+  "username": "***",
+  "password": "***"
+}
+```
+
+3. I want to be able to format and export the values to environment variables:
+
+```bash
+> source <(aws-secrets-parser database-secret --naming constant --prefix DATABASE --output export)
 > printenv
 
 DATABASE_USERNAME=***
 DATABASE_PASSWORD=***
 ```
 
-I also want to format and export them to a `.env` file:
+4. I want to be able to format and export them to a `.env` file:
 
 ```bash
 > aws-secrets-parser database-secret --naming constant --prefix DATABASE --output dotenv > .env
@@ -86,7 +96,7 @@ Options:
   -n, --naming   Set the key naming format    [string] [choices: "preserve", "constant", "pascal"] [default: "preserve"]
   -p, --prefix   Add a prefix to the keys                                                                       [string]
   -P, --postgres Aggregate postgres variables                                                 [boolean] [default: false]
-  -o, --output   Set the output format                        [string] [choices: "export", "dotenv"] [default: "export"]
+  -o, --output   Set the output format                  [string] [choices: "json", "export", "dotenv"] [default: "json"]
 ```
 
 Naming formats:
@@ -97,13 +107,14 @@ Naming formats:
 
 Output formats:
 
+- **`json`** → `{ ... }`
 - **`export`** → `export key='value'`
 - **`dotenv`** → `key=value`
 
 #### Examples
 
 ```bash
-> aws-secrets-parser database-secret --naming constant --prefix DATABASE
+> aws-secrets-parser database-secret --naming constant --prefix DATABASE --output export
 
 export DATABASE_USERNAME='***'
 export DATABASE_PASSWORD='***'
@@ -112,7 +123,7 @@ export DATABASE_PASSWORD='***'
 The cli prints export statements since you can't set environment variables from a script directly. Running the cli with `source` will consume them:
 
 ```bash
-> source <(aws-secrets-parser database-secret --naming constant --prefix DATABASE)
+> source <(aws-secrets-parser database-secret --naming constant --prefix DATABASE --output export)
 > printenv
 
 DATABASE_USERNAME=***
