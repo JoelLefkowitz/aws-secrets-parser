@@ -1,4 +1,3 @@
-import { Options } from "./options";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { emit } from "./emitters";
 
@@ -9,17 +8,27 @@ describe("emit", () => {
     spy.mockClear();
   });
 
-  const options: Options = {
-    naming: {
-      format: "preserve",
-    },
-    aggregation: {
-      postgres: false,
-    },
-    output: {
-      format: "export",
-    },
-  };
+  it("emits JSON", () => {
+    emit(
+      {
+        a: 1,
+        b: 2,
+      },
+      {
+        naming: {
+          format: "preserve",
+        },
+        aggregation: {
+          postgres: false,
+        },
+        output: {
+          format: "json",
+        },
+      },
+    );
+
+    expect(spy).toHaveBeenCalledWith('{"a":1,"b":2}');
+  });
 
   it("emits key-value pairs in export format", () => {
     emit(
@@ -27,7 +36,17 @@ describe("emit", () => {
         a: 1,
         b: 2,
       },
-      options,
+      {
+        naming: {
+          format: "preserve",
+        },
+        aggregation: {
+          postgres: false,
+        },
+        output: {
+          format: "export",
+        },
+      },
     );
 
     expect(spy).toHaveBeenCalledWith("export a='1'");
@@ -41,7 +60,12 @@ describe("emit", () => {
         b: 2,
       },
       {
-        ...options,
+        naming: {
+          format: "preserve",
+        },
+        aggregation: {
+          postgres: false,
+        },
         output: {
           format: "dotenv",
         },
@@ -61,9 +85,14 @@ describe("emit", () => {
         DATABASE: "DATABASE",
       },
       {
-        ...options,
+        naming: {
+          format: "preserve",
+        },
         aggregation: {
           postgres: true,
+        },
+        output: {
+          format: "export",
         },
       },
     );
@@ -75,7 +104,17 @@ describe("emit", () => {
 
   it("throws if the JSON is not a record", () => {
     expect(() => {
-      emit([], options);
+      emit([], {
+        naming: {
+          format: "preserve",
+        },
+        aggregation: {
+          postgres: false,
+        },
+        output: {
+          format: "export",
+        },
+      });
     }).toThrow("Did not receive key-value pairs for environment variables.");
   });
 });

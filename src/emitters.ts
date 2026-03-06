@@ -4,7 +4,7 @@ import { formatKey } from "./formatters";
 import { postgres } from "./aggregators";
 
 export interface OutputOptions {
-  format: "export" | "dotenv";
+  format: "json" | "export" | "dotenv";
 }
 
 export const emit = (json: IJSON, { naming, aggregation, output }: Options) => {
@@ -24,16 +24,20 @@ export const emit = (json: IJSON, { naming, aggregation, output }: Options) => {
 
   const fields = aggregators.reduce((acc, x) => x(acc), parsed);
 
-  Object.entries(fields).forEach(([k, v]) => {
-    const key = formatKey(k, naming);
-    const value = String(v);
+  if (output.format === "json") {
+    console.log(JSON.stringify(fields));
+  } else {
+    Object.entries(fields).forEach(([k, v]) => {
+      const key = formatKey(k, naming);
+      const value = String(v);
 
-    if (output.format === "export") {
-      console.log(`export ${key}='${value}'`);
-    }
+      if (output.format === "export") {
+        console.log(`export ${key}='${value}'`);
+      }
 
-    if (output.format === "dotenv") {
-      console.log(`${key}=${value}`);
-    }
-  });
+      if (output.format === "dotenv") {
+        console.log(`${key}=${value}`);
+      }
+    });
+  }
 };
